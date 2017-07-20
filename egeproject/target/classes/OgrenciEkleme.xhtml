@@ -1,0 +1,49 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+    
+    
+<h:head>
+
+<title>Ogrenci Ekleme Sayfasi</title>
+</h:head>
+
+    <h:body>
+   	<h:form id="form">
+    <h:outputText id="msgcomponent" binding="#{msgBean.component}"/>
+ 	<p:messages showDetail="true" showSummary="true" autoUpdate="true"/>
+ 
+    <p:panel id="panel" header="Create a new student" style="margin-bottom:20px">
+    <p:separator />
+        <h:panelGrid columns="2" cellpadding="5">
+            <h:outputLabel value="Student Number: *" for="studentNumberInput"></h:outputLabel>
+            <p:inputText id="studentNumberInput" value="#{studentNumber}" required="true"/>
+ 
+            <h:outputLabel value="Student Name: *" for="studentNameInput"></h:outputLabel>
+            <p:inputText id="studentNameInput" value="#{studentName}" required="true"/>
+            
+            <h:outputLabel value="Student Class: *" for="studentClassInput"></h:outputLabel>
+            <p:inputText id="studentClassInput" value="#{studentClass}" required="true"/>
+ 
+            
+        </h:panelGrid>
+    </p:panel>
+ 	
+ 	<p:panel id="panel2" style="margin-bottom:20px">
+ 	<p:panelGrid columns="3">
+ 	<p:commandButton value="Reset" update="panel" process="@this" >
+                <p:resetInput target="panel" />
+            </p:commandButton>
+            <p:commandButton id="btn_add" value="Add" action="#{InsertionBean.InsertStudent(Student.createStudent(studentNumber, studentName, studentClass))}" >
+ 
+            </p:commandButton>
+            <p:button outcome="Default" value="Back" icon="ui-icon-home">
+    		<f:param name="backButton" value="10" />
+			</p:button>
+</p:panelGrid>
+  </p:panel>
+</h:form>
+    </h:body>
+
+</html>

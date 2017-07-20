@@ -14,8 +14,11 @@ public class ConnectionClass {
 	}
 
 
-	public void setConnection(String connectionUrl, String connName, String connPass) {
+	public void setConnection() {
 	
+		String connectionUrl = "jdbc:postgresql://127.0.0.1:5432/theDatabase";
+		String connName = "postgres";
+		String connPass = "22112211";
 		try {
 
 			Class.forName("org.postgresql.Driver");

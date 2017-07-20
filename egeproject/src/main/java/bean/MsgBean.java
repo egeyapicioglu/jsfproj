@@ -23,7 +23,8 @@ public class MsgBean {
 	public void showMessage(String message)
 	{
 		FacesContext context = FacesContext.getCurrentInstance();
-		context.addMessage(component.getClientId(), new FacesMessage(message));
+		context.addMessage(null, new FacesMessage(message));
+		
 	}
 
 }

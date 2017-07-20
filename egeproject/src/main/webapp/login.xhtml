@@ -10,16 +10,20 @@
  
      <h:body>
      	<h:form>
+     	<h:outputText id="msgcomponent" binding="#{msgBean.component}"/>
+ 		<p:messages showDetail="true" showSummary="true" autoUpdate="true"/>
+     	
      	<h:panelGrid columns="2" cellpadding="5">
      	<h:outputText value="User Name: "/>
-     	<p:inputText id="userName" placeholder="Type your username" binding="#{userNameInput}"/>
+     	<p:inputText id="userName" placeholder="Type your username" value="#{userName}"/>
      	
      	<h:outputText value="Password: "/>
-     	<p:password id="nonFeedback" placeholder="Enter your password" binding="#{passwordInput}"/>
+     	<p:password id="passwordInput" placeholder="Enter your password" value="#{userPassword}"/>
      	</h:panelGrid>
      	
-     	<p:commandButton value="LOGIN!" id="loginButton" action="#{LoginBean.loginButtonAction(userNameInput.value, passwordInput.value)}" ajax="false" />
- 
+     	<p:commandButton value="LOGIN!" id="loginButton" action="#{LoginBean.loginButtonAction(User.createNewUser(userName, userPassword))}" ajax="false" />
+ 		
+ 		
      	</h:form>
      
      </h:body>

@@ -7,66 +7,74 @@ import java.sql.SQLException;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
+import java.io.IOException;
 import java.sql.Connection;
 import model.User;
 
-@ManagedBean (name = "LoginBean") 
+@ManagedBean(name = "LoginBean")
 @RequestScoped
+
 
 public class LoginBean {
 
-	User user = new User();
+	//private User user = new User();
+	
 	ConnectionClass connectionClass = new ConnectionClass();
-	String connUrl = "jdbc:postgresql://127.0.0.1:5432/theDatabase";
-	String connName = "postgres";
-	String connPass = "22112211";
 	
 
-	public Connection getDBConnection()
-	{
+	public Connection getDBConnection() {
 		Connection connection = null;
-		connectionClass.setConnection(connUrl, connName, connPass);
+		connectionClass.setConnection();
 		connection = connectionClass.getConnection();
 		return connection;
 	}
-	
-	public Boolean isUserReal(String userName, int password)
-	{
+
+	public Boolean isUserReal(User user) {
 		Boolean resultBool = false;
 		Connection connection = getDBConnection();
-
-		String selectionSql = "SELECT USER_NAME, USER_PASSWORD FROM User_Table WHERE USER_NAME = \'" + userName + "\' AND USER_PASSWORD = \'" + password + "\'"; 
+	
+		String selectionSql = "SELECT USER_NAME, USER_PASSWORD FROM User_Table WHERE USER_NAME = ? AND USER_PASSWORD = ?";
 		try {
 			PreparedStatement preparedStatement = connection.prepareStatement(selectionSql);
-			//preparedStatement.setInt(1,1001);
-			
+		    preparedStatement.setString(1, user.getUserName());
+			preparedStatement.setString(2, user.getPassword());
+
 			ResultSet set = preparedStatement.executeQuery();
-			if(set.next())
+			if (set.next())
 				resultBool = true;
 			
-		} catch (SQLException e) {
-			
+			connection.close();
+		} 
+		catch (SQLException e) 
+		{
+
 			e.printStackTrace();
 			System.out.println(e);
 		}
-		
+
 		return resultBool;
-		
-		
+
 	}
-	
-	public void loginButtonAction(String userName, int password)
-	{
+
+	public void loginButtonAction(User user) {
+		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 		MsgBean msgbean = new MsgBean();
-		if(this.isUserReal(userName, password))
-		{
-			msgbean.showMessage("Welcome to the database");
+		if (this.isUserReal(user)) {
+			
+
+			try {
+				externalContext.redirect("Default.xhtml");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-		else
+
+		else {
 			msgbean.showMessage("Either your username or password is wrong or you don't belong to here");
+		}
 	}
-	
-	
 
 }
