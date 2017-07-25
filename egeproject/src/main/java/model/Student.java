@@ -3,19 +3,22 @@ package model;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
+import egeproject.StudentView;
+
 @ManagedBean(name = "Student")
 @RequestScoped
 
 public class Student {
 
-	private int studentNumber;
+	private Integer studentId;
+	private Integer studentNumber;
 	private String studentName;
 	private String studentClass;
 
-	public int getStudentNumber() {
+	public Integer getStudentNumber() {
 		return studentNumber;
 	}
-	public void setStudentNumber(int studentNumber) {
+	public void setStudentNumber(Integer studentNumber) {
 		this.studentNumber = studentNumber;
 	}
 	public String getStudentName() {
@@ -37,5 +40,25 @@ public class Student {
 		this.setStudentName(studentName);
 		this.setStudentClass(studentClass);
 		return this;
+	}
+	
+	public Student returnStudent()
+	{
+		return this;
+	}
+
+	public Integer getStudentId() {
+		return studentId;
+	}
+	public void setStudentId(Integer studentId) {
+		this.studentId = studentId;
+	}
+	
+	public void clear()
+	{
+		this.studentId = null;
+		this.studentClass = null;
+		this.studentName = null;
+		this.studentNumber = null;
 	}
 }

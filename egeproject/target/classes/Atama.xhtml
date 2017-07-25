@@ -1,0 +1,107 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+
+	<title>Ogrenci-Ders Atama Sayfasi</title>
+</h:head>
+
+<h:body>
+	<h:form id="form">
+		<h:outputText id="msgcomponent" binding="#{msgBean.component}" />
+		<p:messages showDetail="true" showSummary="true" autoUpdate="true" />
+
+		<p:dataTable id="lessonTable" var="lesson"
+			value="#{lessonView.lessons}" selectionMode="multiple"
+			selection="#{StudentLessonBean.selectedLessons}"
+			rowKey="#{lesson.lessonId}" scrollable="true" scrollHeight="150">
+			<p:ajax event="rowSelect" process="@this" update="kullanilmayan, studentTableForm"/>
+			
+			
+			<f:facet name="header">
+            Dersler
+        </f:facet>
+			<p:column headerText="Id">
+				<h:outputText value="#{lesson.lessonId}" />
+			</p:column>
+			<p:column headerText="Name">
+				<h:outputText value="#{lesson.lessonName}" />
+			</p:column>
+		</p:dataTable>
+	</h:form>
+
+	<h:form id="studentTableForm">
+		<p:dataTable id="studentTable" var="student"
+			value="#{studentView.students}" selectionMode="single"
+			selection="#{StudentLessonBean.selectedStudent}"
+			rowKey="#{student.studentId}" scrollable="true" scrollHeight="150">
+			<p:ajax event="rowSelect" process="@this" listener="#{StudentLessonBean.asd()}" update="kullanilmayan"/>
+
+			<f:facet name="header">
+            Öğrenciler
+        </f:facet>
+			<p:column headerText="Id">
+				<h:outputText value="#{student.studentId}" />
+			</p:column>
+			<p:column headerText="Number">
+				<h:outputText value="#{student.studentNumber}" />
+			</p:column>
+			<p:column headerText="Name">
+				<h:outputText value="#{student.studentName}" />
+			</p:column>
+			<p:column headerText="Class">
+				<h:outputText value="#{student.studentClass}" />
+			</p:column>
+
+		</p:dataTable>
+	</h:form>
+
+	<p:commandButton icon="ui-icon-arrowthick-2-e-w"
+		action="#{StudentLessonBean.InsertStudentLesson()}">
+	</p:commandButton>
+
+	<h:form id="kullanilmayan">
+		<p:dataTable var="studentLesson"
+			value="#{StudentLessonBean.studentLessons}"
+			widgetVar="studentLessonsTable"
+			emptyMessage="No students found with given criteria"
+			filteredValue="#{StudentLessonBean.filteredStudentLessons}">
+
+			<f:facet name="header">
+				<p:outputPanel>
+					<h:outputText value="Search all fields:" />
+					<p:inputText id="globalFilter"
+						onkeyup="PF('studentLessonsTable').filter()" style="width:150px"
+						placeholder="Enter keyword" />
+				</p:outputPanel>
+			</f:facet>
+
+			<p:column filterBy="#{studentLesson.studentLessonId}"
+				headerText="Student-Lesson Id" footerText="contains"
+				filterMatchMode="contains">
+				<h:outputText value="#{studentLesson.studentLessonId}" />
+			</p:column>
+
+			<p:column filterBy="#{studentLesson.studentId}"
+				headerText="Student Id" footerText="contains"
+				filterMatchMode="contains">
+				<h:outputText value="#{studentLesson.studentId}" />
+			</p:column>
+
+			<p:column filterBy="#{studentLesson.lessonId}" headerText="Lesson Id"
+				footerText="contains" filterMatchMode="contains">
+				<h:outputText value="#{studentLesson.lessonId}" />
+			</p:column>
+
+			<p:column filterBy="#{studentLesson.score}" headerText="Score"
+				footerText="contains" filterMatchMode="contains">
+				<h:outputText value="#{studentLesson.score}" />
+			</p:column>
+
+		</p:dataTable>
+	</h:form>
+</h:body>
+</html>

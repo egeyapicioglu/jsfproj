@@ -18,32 +18,56 @@
     <p:separator />
         <h:panelGrid columns="2" cellpadding="5">
             <h:outputLabel value="Student Number: *" for="studentNumberInput"></h:outputLabel>
-            <p:inputText id="studentNumberInput" value="#{studentNumber}" required="true"/>
+            <p:inputText id="studentNumberInput" value="#{Student.studentNumber}" required="true" />
  
             <h:outputLabel value="Student Name: *" for="studentNameInput"></h:outputLabel>
-            <p:inputText id="studentNameInput" value="#{studentName}" required="true"/>
+            <p:inputText id="studentNameInput" value="#{Student.studentName}" required="true"/>
             
             <h:outputLabel value="Student Class: *" for="studentClassInput"></h:outputLabel>
-            <p:inputText id="studentClassInput" value="#{studentClass}" required="true"/>
+            <p:inputText id="studentClassInput" value="#{Student.studentClass}" required="true"/>
  
-            
-        </h:panelGrid>
-    </p:panel>
- 	
- 	<p:panel id="panel2" style="margin-bottom:20px">
- 	<p:panelGrid columns="3">
- 	<p:commandButton value="Reset" update="panel" process="@this" >
-                <p:resetInput target="panel" />
-            </p:commandButton>
-            <p:commandButton id="btn_add" value="Add" action="#{InsertionBean.InsertStudent(Student.createStudent(studentNumber, studentName, studentClass))}" >
- 
+            <p:commandButton id="btn_add" value="Add" action="#{StudentBean.InsertStudent(Student.returnStudent())}" update="form" >
+ 			<p:resetInput target="form" />
             </p:commandButton>
             <p:button outcome="Default" value="Back" icon="ui-icon-home">
     		<f:param name="backButton" value="10" />
 			</p:button>
-</p:panelGrid>
-  </p:panel>
+        </h:panelGrid>
+    </p:panel>
+ 	
+ 	
 </h:form>
+
+<h:form>
+    <p:dataTable var="student" value="#{studentView.students}" widgetVar="studentsTable"
+                 emptyMessage="No students found with given criteria" filteredValue="#{studentView.filteredStudents}">
+ 
+        <f:facet name="header">
+            <p:outputPanel>
+                <h:outputText value="Search all fields:" />
+                <p:inputText id="globalFilter" onkeyup="PF('studentsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+            </p:outputPanel>
+        </f:facet>
+ 
+        <p:column filterBy="#{student.studentId}" headerText="Student Id" footerText="contains" filterMatchMode="contains">
+            <h:outputText value="#{student.studentId}" />
+        </p:column>
+ 
+        <p:column filterBy="#{student.studentName}" headerText="Student Name" footerText="contains" filterMatchMode="contains">
+            <h:outputText value="#{student.studentName}" />
+        </p:column>
+ 
+        <p:column filterBy="#{student.studentNumber}" headerText="Student Number" footerText="contains" filterMatchMode="contains">
+            <h:outputText value="#{student.studentNumber}" />
+        </p:column>
+ 
+        <p:column filterBy="#{student.studentClass}" headerText="Student Class" footerText="contains" filterMatchMode="contains">
+            <h:outputText value="#{student.studentClass}" />
+        </p:column>
+ 
+    </p:dataTable>
+</h:form>
+
     </h:body>
 
 </html>

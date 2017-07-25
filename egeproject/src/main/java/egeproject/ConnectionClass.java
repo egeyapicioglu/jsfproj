@@ -53,6 +53,11 @@ public class ConnectionClass {
 		}
 		this.connection = currConnection;
 	}
+	
+	public Connection getDBConnection() {
+		this.setConnection();
+		return this.getConnection();
+	}
 
 
 }

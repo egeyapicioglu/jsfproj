@@ -20,25 +20,49 @@
     <p:separator />
         <h:panelGrid columns="2" cellpadding="5">
             <h:outputLabel value="Lesson Name: *" for="lessonNameInput"></h:outputLabel>
-            <p:inputText id="lessonNameInput" value="#{lessonName}" required="true"/>
+            <p:inputText id="lessonNameInput" value="#{Lesson.lessonName}" required="true"/>
   
+           <p:commandButton id="btn_add" value="Add" action="#{LessonBean.InsertLesson(Lesson.returnLesson())}" update="form">
+ 			<p:resetInput target="form" />
+            </p:commandButton>
+            <p:button outcome="Default" value="Back" icon="ui-icon-home">
+    		<f:param name="backButton" value="10" />
+			</p:button>
         </h:panelGrid>
     </p:panel>
  	
  	<p:panel id="panel2" style="margin-bottom:20px">
  	<p:panelGrid columns="3">
- 	<p:commandButton value="Reset" update="panel" process="@this" >
-                <p:resetInput target="panel" />
-            </p:commandButton>
-            <p:commandButton id="btn_add" value="Add" action="#{InsertionBean.InsertLesson(Lesson.createLesson(lessonName))}" >
  
-            </p:commandButton>
-            <p:button outcome="Default" value="Back" icon="ui-icon-home">
-    		<f:param name="backButton" value="10" />
-			</p:button>
+   
 </p:panelGrid>
   </p:panel>
 </h:form>
+
+
+<h:form>
+    <p:dataTable var="lesson" value="#{lessonView.lessons}" widgetVar="lessonsTable"
+                 emptyMessage="No lessons found with given criteria" filteredValue="#{lessonView.filteredLessons}">
+ 
+        <f:facet name="header">
+            <p:outputPanel>
+                <h:outputText value="Search all fields:" />
+                <p:inputText id="globalFilter" onkeyup="PF('lessonsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+            </p:outputPanel>
+        </f:facet>
+       
+         <p:column filterBy="#{lesson.lessonId}" headerText="Lesson Id" footerText="contains" filterMatchMode="contains">
+            <h:outputText value="#{lesson.lessonId}" />
+        </p:column>
+ 
+        <p:column filterBy="#{lesson.lessonName}" headerText="Lesson Name" footerText="contains" filterMatchMode="contains">
+            <h:outputText value="#{lesson.lessonName}" />
+        </p:column>
+ 	
+ 
+    </p:dataTable>
+</h:form>
+
     </h:body>
 
 </html>
