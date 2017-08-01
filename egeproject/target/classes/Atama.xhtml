@@ -10,6 +10,11 @@
 </h:head>
 
 <h:body>
+
+
+
+
+
 	<h:form id="form">
 		<h:outputText id="msgcomponent" binding="#{msgBean.component}" />
 		<p:messages showDetail="true" showSummary="true" autoUpdate="true" />
@@ -18,7 +23,7 @@
 			value="#{lessonView.lessons}" selectionMode="multiple"
 			selection="#{StudentLessonBean.selectedLessons}"
 			rowKey="#{lesson.lessonId}" scrollable="true" scrollHeight="150">
-			<p:ajax event="rowSelect" process="@this" update="kullanilmayan, studentTableForm"/>
+			
 			
 			
 			<f:facet name="header">
@@ -31,15 +36,12 @@
 				<h:outputText value="#{lesson.lessonName}" />
 			</p:column>
 		</p:dataTable>
-	</h:form>
-
-	<h:form id="studentTableForm">
-		<p:dataTable id="studentTable" var="student"
+		
+			<p:dataTable id="studentTable" var="student"
 			value="#{studentView.students}" selectionMode="single"
 			selection="#{StudentLessonBean.selectedStudent}"
 			rowKey="#{student.studentId}" scrollable="true" scrollHeight="150">
-			<p:ajax event="rowSelect" process="@this" listener="#{StudentLessonBean.asd()}" update="kullanilmayan"/>
-
+			
 			<f:facet name="header">
             Öğrenciler
         </f:facet>
@@ -57,51 +59,61 @@
 			</p:column>
 
 		</p:dataTable>
-	</h:form>
-
-	<p:commandButton icon="ui-icon-arrowthick-2-e-w"
+		
+			<p:commandButton icon="ui-icon-arrowthick-2-e-w"
 		action="#{StudentLessonBean.InsertStudentLesson()}">
 	</p:commandButton>
+		 <p:button outcome="Default" value="Back" icon="ui-icon-home">
+    		<f:param name="backButton" value="10" />
+			</p:button>
+	</h:form>
+
+
+</h:body>
+
+<h:body>
+
 
 	<h:form id="kullanilmayan">
-		<p:dataTable var="studentLesson"
-			value="#{StudentLessonBean.studentLessons}"
-			widgetVar="studentLessonsTable"
+		<p:dataTable var="studentLessonElement"
+			value="#{StudentLessonBean.studentLessonElements}"
+			widgetVar="studentLessonElementTable"
 			emptyMessage="No students found with given criteria"
-			filteredValue="#{StudentLessonBean.filteredStudentLessons}">
+			filteredValue="#{StudentLessonBean.filteredStudentLessonElements}">
 
 			<f:facet name="header">
 				<p:outputPanel>
 					<h:outputText value="Search all fields:" />
 					<p:inputText id="globalFilter"
-						onkeyup="PF('studentLessonsTable').filter()" style="width:150px"
+						onkeyup="PF('studentLessonElementTable').filter()" style="width:150px"
 						placeholder="Enter keyword" />
 				</p:outputPanel>
 			</f:facet>
 
-			<p:column filterBy="#{studentLesson.studentLessonId}"
+			<p:column filterBy="#{studentLessonElement.studentLessonId}"
 				headerText="Student-Lesson Id" footerText="contains"
 				filterMatchMode="contains">
-				<h:outputText value="#{studentLesson.studentLessonId}" />
+				<h:outputText value="#{studentLessonElement.studentLessonId}" />
 			</p:column>
 
-			<p:column filterBy="#{studentLesson.studentId}"
-				headerText="Student Id" footerText="contains"
+			<p:column filterBy="#{studentLessonElement.studentName}"
+				headerText="Student Name" footerText="contains"
 				filterMatchMode="contains">
-				<h:outputText value="#{studentLesson.studentId}" />
+				<h:outputText value="#{studentLessonElement.studentName}" />
 			</p:column>
 
-			<p:column filterBy="#{studentLesson.lessonId}" headerText="Lesson Id"
+			<p:column filterBy="#{studentLessonElement.lessonName}" headerText="Lesson Name"
 				footerText="contains" filterMatchMode="contains">
-				<h:outputText value="#{studentLesson.lessonId}" />
+				<h:outputText value="#{studentLessonElement.lessonName}" />
 			</p:column>
 
-			<p:column filterBy="#{studentLesson.score}" headerText="Score"
+			<p:column filterBy="#{studentLessonElement.score}" headerText="Score"
 				footerText="contains" filterMatchMode="contains">
-				<h:outputText value="#{studentLesson.score}" />
+				<h:outputText value="#{studentLessonElement.score}" />
 			</p:column>
 
 		</p:dataTable>
-	</h:form>
+	</h:form>	
+
 </h:body>
 </html>

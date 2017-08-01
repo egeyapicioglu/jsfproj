@@ -1,0 +1,57 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+    
+    
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Insert title here</title>
+</h:head>
+
+<h:body>
+<h:form>
+ <p:dataTable id="lessonTable" var="lesson" value="#{lessonView.lessons}" selection="#{StudentLessonBean.selectedLessons}" rowKey="#{lesson.lessonId}" style="margin-bottom:0" scrollable="true" scrollHeight="150">
+        <f:facet name="header">
+            Dersler
+        </f:facet>
+        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+        <p:column headerText="Lesson Id">
+            <h:outputText value="#{lesson.lessonId}" />
+        </p:column>
+        <p:column headerText="Lesson Name">
+            <h:outputText value="#{lesson.lessonName}" />
+        </p:column>
+    </p:dataTable>
+ </h:form>
+ 
+ <h:form>
+    <p:dataTable id="studentTable" var="student" value="#{studentView.students}" selection="#{StudentLessonBean.selectedStudent}" rowKey="#{student.studentId}" scrollable="true" scrollHeight="150">
+        <f:facet name="header">
+            Ogrenci
+        </f:facet>
+        <p:column selectionMode="single" style="width:16px;text-align:center"/>
+        <p:column headerText="Student Id">
+            <h:outputText value="#{student.studentId}" />
+        </p:column>
+        <p:column headerText="Student Number">
+            <h:outputText value="#{student.studentNumber}" />
+        </p:column>
+        <p:column headerText="Student Name">
+            <h:outputText value="#{student.studentName}" />
+        </p:column>
+        <p:column headerText="Student Class">
+            <h:outputText value="#{student.studentClass}" />
+        </p:column>
+    </p:dataTable>
+    
+ </h:form>
+ 
+ <p:commandButton icon="ui-icon-arrowthick-2-e-w"
+ 				  action="#{StudentLessonBean.InsertStudentLesson()}">
+ 				  </p:commandButton>
+ 				  
+
+
+</h:body>
+</html>

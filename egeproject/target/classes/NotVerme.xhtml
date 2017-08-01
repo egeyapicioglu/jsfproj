@@ -1,0 +1,71 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+    
+    
+<h:head>
+
+
+</h:head>
+
+    <h:body>
+
+
+<h:form id="NotTablosu">
+	 <h:outputText id="msgcomponent" binding="#{msgBean.component}"/>
+ 	 <p:messages showDetail="true" showSummary="true" autoUpdate="true"/>	
+	<p:dataTable var="studentLessonElement"
+			value="#{StudentLessonBean.studentLessonElements}"
+			widgetVar="studentLessonElementTable"
+			selectionMode="single"
+			selection="#{StudentLessonBean.selectedStudentLessonElement}"
+			rowKey="#{studentLessonElement.studentLessonId}"
+			emptyMessage="No students found with given criteria"
+			filteredValue="#{StudentLessonBean.filteredStudentLessonElements}">
+
+			<f:facet name="header">
+				<p:outputPanel>
+					<h:outputText value="Search all fields:" />
+					<p:inputText id="globalFilter"
+						onkeyup="PF('studentLessonElementTable').filter()" style="width:150px"
+						placeholder="Enter keyword" />
+				</p:outputPanel>
+			</f:facet>
+
+			<p:column filterBy="#{studentLessonElement.studentLessonId}"
+				headerText="Student-Lesson Id" footerText="contains"
+				filterMatchMode="contains">
+				<h:outputText value="#{studentLessonElement.studentLessonId}" />
+			</p:column>
+
+			<p:column filterBy="#{studentLessonElement.studentName}"
+				headerText="Student Name" footerText="contains"
+				filterMatchMode="contains">
+				<h:outputText value="#{studentLessonElement.studentName}" />
+			</p:column>
+
+			<p:column filterBy="#{studentLessonElement.lessonName}" headerText="Lesson Name"
+				footerText="contains" filterMatchMode="contains">
+				<h:outputText value="#{studentLessonElement.lessonName}" />
+			</p:column>
+
+			<p:column filterBy="#{studentLessonElement.score}" headerText="Score"
+				footerText="contains" filterMatchMode="contains">
+				<h:outputText value="#{studentLessonElement.score}" />
+			</p:column>
+
+		</p:dataTable>
+		<p:inputText id="scoreInput" value="#{StudentLessonBean.score}" required="true"/>
+		<p:commandButton icon="ui-icon-pencil"
+		action="#{StudentLessonBean.InsertGrade()}" update="NotTablosu">
+		<p:resetInput target="scoreInput" />
+	</p:commandButton>
+	 <p:button outcome="Default" value="Back" icon="ui-icon-home">
+    		<f:param name="backButton" value="10" />
+			</p:button>
+</h:form>
+
+    </h:body>
+
+</html>

@@ -16,45 +16,18 @@ MAIN PAGE
             <p:menuitem value="Öğrenci Ekle" outcome="/OgrenciEkleme" actionListener="#{menuView.save}" update="messages" icon="ui-icon-circle-plus" />
             <p:menuitem value="Ders Ekle" outcome="/DersEkleme" actionListener="#{menuView.update}" icon="ui-icon-circle-plus" />
         </p:submenu>
-        <p:submenu label="Arama İşlemleri" icon="ui-icon-search">
-        	<p:menuitem value="Öğrenci Tablosunda Ara" actionListener="#{menuView.save}" update="messages" icon="ui-icon-search" />
-            <p:menuitem value="Ders Tablosunda Ara" actionListener="#{menuView.update}" update="messages" icon="ui-icon-search" />
-        </p:submenu>
         <p:submenu label="Atama İşlemleri" icon="ui-icon-arrow-2-e-w">
-        	<p:menuitem value="Öğrenciye Ders Ata" actionListener="#{menuView.save}" update="messages" icon="ui-icon-arrow-2-e-w" />
+        	<p:menuitem value="Öğrenciye Ders Ata" outcome="/Atama" actionListener="#{menuView.save}" update="messages" icon="ui-icon-arrow-2-e-w" />
         </p:submenu>
-        <p:submenu label="Non-Ajax Menuitem" icon="ui-icon-newwin">
-            <p:menuitem value="Delete" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>
+        <p:submenu label="Not Verme İşlemleri" icon="ui-icon-pencil">
+        	<p:menuitem value="Öğrenciye Not Ver/ Öğrenci Notu Değiştir" outcome="/NotVerme" actionListener="#{menuView.save}" update="messages" icon="ui-icon-arrow-2-e-w" />
         </p:submenu>
         <p:separator />
-        <p:submenu label="Navigations" icon="ui-icon-extlink">
-            <p:submenu label="Prime Links">
-                <p:menuitem value="Prime" url="http://www.prime.com.tr" />
-                <p:menuitem value="PrimeFaces" url="http://www.primefaces.org" />
-            </p:submenu>
-            <p:menuitem value="Mobile"  />
-        </p:submenu>
     </p:slideMenu>
  
     <p:separator />
  
-    <p:commandButton id="dynaButton" value="Show" type="button" icon="ui-icon-extlink"/>
-    <p:slideMenu overlay="true" trigger="dynaButton" my="left top" at="left bottom" style="width:180px">
-        <p:submenu label="Ajax Menuitems">
-            <p:menuitem value="Save" actionListener="#{menuView.save}" update="messages" icon="ui-icon-disk"/>
-            <p:menuitem value="Update" actionListener="#{menuView.update}" update="messages" icon="ui-icon-arrowrefresh-1-w"/>
-        </p:submenu>
-        <p:submenu label="Non-Ajax Menuitem">
-            <p:menuitem value="Delete" actionListener="#{menuView.delete}"  ajax="false" icon="ui-icon-close"/>
-        </p:submenu>
-        <p:submenu label="Navigations" icon="ui-icon-extlink">
-            <p:submenu label="Prime Links">
-                <p:menuitem value="Prime" url="http://www.prime.com.tr" />
-                <p:menuitem value="PrimeFaces" url="http://www.primefaces.org" />
-            </p:submenu>
-            <p:menuitem value="Mobile" />
-        </p:submenu>
-    </p:slideMenu>
+  
 </h:form>
 
      </h:body>

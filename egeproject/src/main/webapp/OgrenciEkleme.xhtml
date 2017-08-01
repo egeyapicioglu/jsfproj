@@ -26,7 +26,7 @@
             <h:outputLabel value="Student Class: *" for="studentClassInput"></h:outputLabel>
             <p:inputText id="studentClassInput" value="#{Student.studentClass}" required="true"/>
  
-            <p:commandButton id="btn_add" value="Add" action="#{StudentBean.InsertStudent(Student.returnStudent())}" update="form" >
+            <p:commandButton id="btn_add" value="Add" action="#{StudentBean.InsertStudent(Student.returnStudent())}" update="form studentForm" >
  			<p:resetInput target="form" />
             </p:commandButton>
             <p:button outcome="Default" value="Back" icon="ui-icon-home">
@@ -38,7 +38,7 @@
  	
 </h:form>
 
-<h:form>
+<h:form id="studentForm">
     <p:dataTable var="student" value="#{studentView.students}" widgetVar="studentsTable"
                  emptyMessage="No students found with given criteria" filteredValue="#{studentView.filteredStudents}">
  
